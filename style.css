@@ -1,0 +1,559 @@
+/* ==========================================================
+   Painel da Estufa 2
+   Mobile first: o layout base é de uma coluna e cresce
+   com os breakpoints de 40rem (tablet) e 64rem (desktop).
+   ========================================================== */
+
+:root {
+  --bg: #e8eeea;
+  --surface: #f8faf8;
+  --ink: #12241c;
+  --muted: #4a5e54;
+  --line: #c3cfc7;
+  --deep: #0f2a21;
+  --ok: #0e6b52;
+  --ok-soft: #d5ebe2;
+  --warn: #a64b06;
+  --warn-soft: #fbe6d2;
+  --track: #d5ddd8;
+
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+
+  --radius: 0.75rem;
+  --gap: 1rem;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 1rem;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+h1, h2, h3, p, ul, fieldset {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+.wrap {
+  width: min(100% - 2rem, 72rem);
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  padding: 0.5rem 1rem;
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 0.5rem;
+  z-index: 10;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+:focus-visible {
+  outline: 3px solid #f0b429;
+  outline-offset: 3px;
+}
+
+/* ---------- Cabeçalho ---------- */
+
+.site-header {
+  background: var(--deep);
+  color: #eaf3ee;
+  padding-block: 1.25rem;
+}
+
+.header-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.brand h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.brand p {
+  color: #b5cabf;
+  font-size: 0.95rem;
+}
+
+.site-header nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+.site-header nav a {
+  display: inline-block;
+  padding: 0.35rem 0;
+  color: #eaf3ee;
+  text-decoration: underline;
+  text-decoration-color: #4f7f6d;
+  text-underline-offset: 0.35em;
+}
+.site-header nav a:hover {
+  text-decoration-color: #eaf3ee;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: #b5cabf;
+}
+
+.status-dot {
+  flex: none;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: #4be0a6;
+  box-shadow: 0 0 0 0 rgba(75, 224, 166, 0.6);
+  animation: pulse 2.4s ease-out infinite;
+}
+
+@keyframes pulse {
+  70%  { box-shadow: 0 0 0 0.6rem rgba(75, 224, 166, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(75, 224, 166, 0); }
+}
+
+/* ---------- Conteúdo principal ---------- */
+
+main {
+  padding-block: 2rem 3rem;
+  display: grid;
+  gap: 2.5rem;
+}
+
+.summary h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  max-width: 24ch;
+}
+
+.summary p {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  max-width: 60ch;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* ---------- Cards de telemetria ---------- */
+
+.cards {
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: 1fr;
+}
+
+.card {
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.reading {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.unit {
+  margin-left: 0.25rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.card--featured .reading {
+  font-size: 4rem;
+}
+
+.card--alert {
+  border-color: var(--warn);
+  border-width: 2px;
+}
+
+.note {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* Selo de status: texto + ícone, nunca só cor */
+.badge {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.15rem 0.7rem 0.15rem 0.5rem;
+  border-radius: 99px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.badge::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  background: currentColor;
+}
+.badge--ok {
+  color: var(--ok);
+  background: var(--ok-soft);
+}
+.badge--ok::before {
+  border-radius: 50%;
+}
+.badge--warn {
+  color: var(--warn);
+  background: var(--warn-soft);
+}
+.badge--warn::before {
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+/* Barra de medição (<meter>) */
+meter {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 0.6rem;
+  border: 0;
+  border-radius: 99px;
+  background: var(--track);
+}
+meter::-webkit-meter-bar {
+  height: 0.6rem;
+  border: 0;
+  border-radius: 99px;
+  background: var(--track);
+}
+meter::-webkit-meter-optimum-value {
+  background: var(--ok);
+  border-radius: 99px;
+}
+meter::-webkit-meter-suboptimum-value,
+meter::-webkit-meter-even-less-good-value {
+  background: var(--warn);
+  border-radius: 99px;
+}
+meter::-moz-meter-bar {
+  background: var(--ok);
+  border-radius: 99px;
+}
+meter:-moz-meter-sub-optimum::-moz-meter-bar,
+meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+  background: var(--warn);
+}
+
+/* ---------- Acionamento ---------- */
+
+.panel {
+  display: grid;
+  gap: var(--gap);
+}
+
+fieldset {
+  min-width: 0;
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+legend {
+  padding: 0 0.5rem;
+  margin-left: -0.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.85rem;
+  border-top: 1px solid var(--line);
+}
+.switch-row:first-of-type {
+  border-top: 0;
+}
+
+.switch-row label {
+  display: grid;
+  flex: 1;
+  cursor: pointer;
+}
+.switch-name {
+  font-weight: 600;
+}
+.switch-desc {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.state {
+  min-width: 5rem;
+  text-align: right;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.state::after {
+  content: "Desligada";
+}
+.switch input:checked ~ .state {
+  color: var(--ok);
+}
+.switch input:checked ~ .state::after {
+  content: "Ligada";
+}
+
+.switch input {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  flex: none;
+  order: 2;
+  width: 3rem;
+  height: 1.75rem;
+  margin: 0;
+  border-radius: 99px;
+  background: #8a9a92;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.switch input::before {
+  content: "";
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+}
+.switch input:checked {
+  background: var(--ok);
+}
+.switch input:checked::before {
+  transform: translateX(1.25rem);
+}
+
+/* Campos de formulário */
+
+.field {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: 1rem;
+}
+.field label {
+  font-weight: 600;
+}
+.field input {
+  width: 100%;
+  max-width: 14rem;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  color: inherit;
+  background: #fff;
+  border: 1px solid #8a9a92;
+  border-radius: 0.5rem;
+}
+.hint {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  padding: 0.7rem 1.25rem;
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  background: transparent;
+  border: 2px solid var(--ink);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.btn:hover {
+  background: var(--ink);
+  color: #fff;
+}
+.btn--primary {
+  color: #fff;
+  background: var(--ok);
+  border-color: var(--ok);
+}
+.btn--primary:hover {
+  background: var(--deep);
+  border-color: var(--deep);
+}
+
+/* ---------- Alertas ---------- */
+
+.alerts li {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: 0.75rem;
+  padding-block: 0.75rem;
+  border-top: 1px solid var(--line);
+}
+.alerts time {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Rodapé ---------- */
+
+.site-footer {
+  padding-block: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+
+/* ==========================================================
+   Tablet: 2 colunas
+   ========================================================== */
+@media (min-width: 40rem) {
+  .header-grid {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+  .status {
+    grid-column: 1 / -1;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .card--featured {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ==========================================================
+   Desktop: grade de 12 colunas
+   ========================================================== */
+@media (min-width: 64rem) {
+  .header-grid {
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 2rem;
+  }
+  .status {
+    grid-column: auto;
+  }
+
+  main {
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 2rem;
+  }
+  .summary,
+  .telemetry,
+  .actuation {
+    grid-column: 1 / -1;
+  }
+
+  .actuation .panel {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .alerts {
+    grid-column: 1 / -1;
+  }
+
+  .cards {
+    grid-template-columns: repeat(12, 1fr);
+  }
+  .card {
+    grid-column: span 4;
+  }
+  .card--featured {
+    grid-column: span 6;
+  }
+  .card--featured + .card,
+  .card--featured + .card + .card {
+    grid-column: span 3;
+  }
+}
+
+/* ---------- Preferências do usuário ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .status-dot {
+    animation: none;
+  }
+  .switch input,
+  .switch input::before {
+    transition: none;
+  }
+}

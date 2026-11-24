@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel da Estufa 2: telemetria e acionamentos em tempo real</title>
+  <meta name="description" content="Acompanhe temperatura, umidade, nível do reservatório, luminosidade e pH da Estufa 2 e acione irrigação, ventilação e iluminação em um único painel.">
+  <meta name="theme-color" content="#0f2a21">
+  <link rel="canonical" href="https://exemplo.com.br/painel-estufa/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Painel da Estufa 2">
+  <meta property="og:description" content="Telemetria e acionamentos da estufa em um único painel.">
+  <meta property="og:locale" content="pt_BR">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#principal">Ir para o conteúdo principal</a>
+
+  <header class="site-header">
+    <div class="wrap header-grid">
+      <div class="brand">
+        <h1>Estufa 2, Cruzeiro</h1>
+        <p>Cultivo hidropônico de alface e manjericão</p>
+      </div>
+
+      <nav aria-label="Seções do painel">
+        <ul>
+          <li><a href="#telemetria">Telemetria</a></li>
+          <li><a href="#acionamento">Acionamento</a></li>
+          <li><a href="#alertas">Alertas</a></li>
+        </ul>
+      </nav>
+
+      <p class="status" role="status">
+        <span class="status-dot" aria-hidden="true"></span>
+        Conectada. Última leitura às <time datetime="2026-11-23T14:32">14h32</time>
+      </p>
+    </div>
+  </header>
+
+  <main id="principal" class="wrap">
+
+    <section class="summary" aria-labelledby="titulo-resumo">
+      <h2 id="titulo-resumo">5 de 6 sensores dentro da faixa ideal</h2>
+      <p>A umidade do solo está abaixo do recomendado. A irrigação está programada para as 15h00.</p>
+    </section>
+
+    <section id="telemetria" class="telemetry" aria-labelledby="titulo-telemetria">
+      <h2 id="titulo-telemetria" class="section-title">Telemetria</h2>
+
+      <div class="cards">
+        <article class="card card--featured">
+          <h3>Temperatura do ar</h3>
+          <p class="reading"><data value="27.4">27,4</data><span class="unit">°C</span></p>
+          <meter min="0" max="45" low="18" high="30" optimum="24" value="27.4">27,4 °C</meter>
+          <p class="badge badge--ok">Dentro da faixa</p>
+          <p class="note">Faixa ideal: 18 a 30 °C</p>
+        </article>
+
+        <article class="card">
+          <h3>Umidade do ar</h3>
+          <p class="reading"><data value="68">68</data><span class="unit">%</span></p>
+          <meter min="0" max="100" low="55" high="80" optimum="68" value="68">68%</meter>
+          <p class="badge badge--ok">Dentro da faixa</p>
+          <p class="note">Faixa ideal: 55 a 80%</p>
+        </article>
+
+        <article class="card card--alert">
+          <h3>Umidade do solo</h3>
+          <p class="reading"><data value="41">41</data><span class="unit">%</span></p>
+          <meter min="0" max="100" low="45" high="75" optimum="60" value="41">41%</meter>
+          <p class="badge badge--warn">Abaixo da faixa</p>
+          <p class="note">Faixa ideal: 45 a 75%</p>
+        </article>
+
+        <article class="card">
+          <h3>Nível do reservatório</h3>
+          <p class="reading"><data value="82">82</data><span class="unit">%</span></p>
+          <meter min="0" max="100" low="20" high="99" optimum="100" value="82">82%</meter>
+          <p class="badge badge--ok">Dentro da faixa</p>
+          <p class="note">Cerca de 410 litros disponíveis</p>
+        </article>
+
+        <article class="card">
+          <h3>Luminosidade</h3>
+          <p class="reading"><data value="18400">18.400</data><span class="unit">lux</span></p>
+          <meter min="0" max="40000" low="10000" high="30000" optimum="20000" value="18400">18.400 lux</meter>
+          <p class="badge badge--ok">Dentro da faixa</p>
+          <p class="note">Faixa ideal: 10.000 a 30.000 lux</p>
+        </article>
+
+        <article class="card">
+          <h3>pH da solução</h3>
+          <p class="reading"><data value="6.1">6,1</data></p>
+          <meter min="4" max="9" low="5.5" high="6.5" optimum="6" value="6.1">pH 6,1</meter>
+          <p class="badge badge--ok">Dentro da faixa</p>
+          <p class="note">Faixa ideal: 5,5 a 6,5</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="acionamento" class="actuation" aria-labelledby="titulo-acionamento">
+      <h2 id="titulo-acionamento" class="section-title">Acionamento</h2>
+
+      <form action="#" method="post" class="panel">
+        <fieldset>
+          <legend>Equipamentos</legend>
+
+          <div class="switch-row">
+            <label for="irrigacao">
+              <span class="switch-name">Irrigação</span>
+              <span class="switch-desc">Bombas das linhas A e B</span>
+            </label>
+            <span class="switch">
+              <input type="checkbox" id="irrigacao" name="irrigacao" role="switch">
+              <span class="state" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <div class="switch-row">
+            <label for="ventilacao">
+              <span class="switch-name">Ventilação</span>
+              <span class="switch-desc">Exaustores laterais</span>
+            </label>
+            <span class="switch">
+              <input type="checkbox" id="ventilacao" name="ventilacao" role="switch" checked>
+              <span class="state" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <div class="switch-row">
+            <label for="iluminacao">
+              <span class="switch-name">Iluminação complementar</span>
+              <span class="switch-desc">Painéis de LED</span>
+            </label>
+            <span class="switch">
+              <input type="checkbox" id="iluminacao" name="iluminacao" role="switch">
+              <span class="state" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <div class="switch-row">
+            <label for="nebulizacao">
+              <span class="switch-name">Nebulização</span>
+              <span class="switch-desc">Bicos de névoa sobre as bancadas</span>
+            </label>
+            <span class="switch">
+              <input type="checkbox" id="nebulizacao" name="nebulizacao" role="switch">
+              <span class="state" aria-hidden="true"></span>
+            </span>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Ajustes automáticos</legend>
+
+          <div class="field">
+            <label for="temp-alvo">Temperatura máxima (°C)</label>
+            <input type="number" id="temp-alvo" name="temp-alvo" min="15" max="40" step="0.5" value="30" inputmode="decimal">
+            <p class="hint">A ventilação liga sozinha acima deste valor.</p>
+          </div>
+
+          <div class="field">
+            <label for="solo-min">Umidade mínima do solo (%)</label>
+            <input type="number" id="solo-min" name="solo-min" min="10" max="90" step="1" value="45" inputmode="numeric">
+            <p class="hint">A irrigação liga sozinha abaixo deste valor.</p>
+          </div>
+
+          <div class="field">
+            <label for="horario">Irrigação programada</label>
+            <input type="time" id="horario" name="horario" value="15:00">
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn btn--primary">Salvar ajustes</button>
+            <button type="reset" class="btn">Restaurar padrão</button>
+          </div>
+        </fieldset>
+      </form>
+    </section>
+
+    <aside id="alertas" class="alerts" aria-labelledby="titulo-alertas">
+      <h2 id="titulo-alertas" class="section-title">Alertas recentes</h2>
+      <ul>
+        <li>
+          <time datetime="2026-11-23T14:10">14h10</time>
+          <p>Umidade do solo abaixo de 45% na bancada 3.</p>
+        </li>
+        <li>
+          <time datetime="2026-11-23T11:42">11h42</time>
+          <p>Ventilação ligada: temperatura passou de 30 °C.</p>
+        </li>
+        <li>
+          <time datetime="2026-11-23T07:05">07h05</time>
+          <p>Irrigação concluída nas linhas A e B.</p>
+        </li>
+      </ul>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Painel de demonstração para estudo de HTML5 e CSS3. Os dados são fictícios.</p>
+    </div>
+  </footer>
+</body>
+</html>
